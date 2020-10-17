@@ -1,6 +1,15 @@
-.navbar{
-  height: 100%;
-  position: fixed;
+.nav{
+  width: 25%;
+  max-width: 190px;
   background-color: gray;
-  overflow: auto;
+  vertical-align: top;
+  display: inline-block;
+}
+ul{
+  list-style-type: none;
+  padding: 4%;
+  margin: 0;
+}
+li{
+  padding: 2%;
 }
