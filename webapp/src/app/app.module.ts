@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { SectionComponent } from './section/section.component';
 import { MaturaComponent } from './matura/matura.component';
 import { TryYourselfComponent } from './try-yourself/try-yourself.component';
 
@@ -16,9 +15,8 @@ import { TryYourselfComponent } from './try-yourself/try-yourself.component';
     PageNotFoundComponent,
     HomeComponent,
     MainNavComponent,
-    SectionComponent,
     MaturaComponent,
-    TryYourselfComponent
+    TryYourselfComponent,
   ],
   imports: [
     BrowserModule,
