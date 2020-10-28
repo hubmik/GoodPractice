@@ -6,6 +6,11 @@
   text-decoration: none;
 }
 
+.dashboard ul :hover{
+  text-decoration: underline;
+}
+
 ul{
   padding: 0;
+  display: block;
 }
