@@ -10,45 +10,49 @@ export class LinearFunctionComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    var chart = new Chart("linear-function-chart", {
-      type: "bar",
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
+    this.renderChart(3, 5);
+  }
+
+  renderChart(a, b): void{
+    var dataChart = {
+      labels: [1, 2, 3, 4, 5, 6, 7, 8],
+      datasets: [
+        {
+          label: "f(x) = a*x+b",
+          function: (x: any) => a*x+b,
+          data: [], // Don't forget to add an empty data array, or else it will break
+          borderColor: "rgba(75, 1, 192, 1)",
+          fill: false,
+        },
+      ],
+    };
+
+    Chart.pluginService.register({
+      beforeInit: (chart: { config: { data: any; }; }) => {
+        var data = chart.config.data;
+        for (var i = 0; i < dataChart.datasets.length; i++) {
+          for (var j = 0; j < dataChart.labels.length; j++) {
+            var fct = dataChart.datasets[i].function,
+              x = dataChart.labels[j],
+              y = fct(x);
+            dataChart.datasets[i].data.push(y);
+          }
+        }
+      }
+    });
+
+    var lineChart = new Chart("linear-function-chart", {
+      type: 'line',
+      data: dataChart,
       options: {
         scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      },
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
     });
   }
 }
