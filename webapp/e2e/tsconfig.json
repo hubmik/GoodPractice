@@ -4,6 +4,12 @@
     "outDir": "../out-tsc/e2e",
     "module": "commonjs",
     "target": "es2018",
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "node_modules"
+    ],
     "types": [
       "jasmine",
       "jasminewd2",

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Chart } from "node_modules/chart.js";
+import 'chartjs-plugin-annotation';
+import { bindCallback } from "rxjs";
 
 @Component({
   selector: "app-linear-function",
@@ -7,26 +9,26 @@ import { Chart } from "node_modules/chart.js";
   styleUrls: ["./linear-function.component.scss"],
 })
 export class LinearFunctionComponent implements OnInit {
+  public aParam: number = -3;
+  public bParam: number = 5;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.renderChart(0, 5);
+    this.renderChart(this.aParam, this.bParam);
   }
 
   renderChart(a: number, b: number): void {
 
     var labelsSet = this.fillChartData();
-    for(var i = 0; i < labelsSet.length; i++){
-      labelsSet[i] = i - 15;
-    }
+
     var dataChart = {
       labels: labelsSet,
       datasets: [
         {
           label: "f(x) = a*x+b",
-          function: (x: any) => a * x + b,
-          data: [], // Don't forget to add an empty data array, or else it will break
+          function: (x: number) => a * x + b,
+          data: [],
           borderColor: "rgba(75, 1, 192, 1)",
           fill: false,
         },
@@ -35,50 +37,73 @@ export class LinearFunctionComponent implements OnInit {
 
     Chart.pluginService.register({
       beforeInit: (chart: { config: { data: any } }) => {
-        for (var j = 0; j < dataChart.labels.length; j++) {
-          var fct = dataChart.datasets[0].function,
-            x = dataChart.labels[j],
-            y = fct(x);
-          dataChart.datasets[0].data.push(y);
-        }
+          for (var i = 0; i < dataChart.labels.length; i++) {
+            var fct = dataChart.datasets[0].function,
+              x = dataChart.labels[i],
+              y = fct(x);
+            dataChart.datasets[0].data.push(y);
+          }
       },
     });
+
+    var options = {
+      title: {
+        display: true,
+        text: "Graph of a Linear Function",
+      },
+      annotation: {
+        annotations: [
+          {
+            drawTime: 'afterDraw',
+            type: 'line',
+            mode: 'vertical',
+            scaleID: 'x-axis-0',
+            value: 0,
+            borderColor: 'black',
+            borderWidth: 0.5,
+            label: {
+              enabled: true,
+              content: 'Test vertical label'
+            }
+          },
+        ],
+      },
+      scales: {
+        yAxes: [
+          {
+            scaleLabel: {
+              display: true,
+              labelString: "Y axis",
+            },
+            ticks: {
+              beginAtZero: false,
+              min: -15,
+              max: 15,
+            },
+          },
+        ],
+        xAxes: [
+          {
+            scaleLabel: {
+              display: true,
+              labelString: "X axis",
+            },
+          },
+        ],
+      },
+    };
 
     var lineChart = new Chart("linear-function-chart", {
       type: "line",
       data: dataChart,
-      options: {
-        scales: {
-          yAxes: [
-            {
-              scaleLabel: {
-                display: true,
-                labelString: "Oś Y",
-              },
-              ticks: {
-                beginAtZero: false,
-                min: -15,
-                max: 15,
-              },
-            },
-          ],
-          xAxes: [
-            {
-              scaleLabel: {
-                display: true,
-                labelString: "Oś X",
-              }
-            },
-          ],
-        },
-      },
+      options: options
     });
   }
 
-  fillChartData(): number[]{
-    var labelsSet = new Array(31);
-    for(var i = 0; i < labelsSet.length; i++){
-      labelsSet[i] = i - 15;
+  fillChartData(): number[] {
+    var labelsSet = new Array(7);
+    for (var i = 0, j = -15; i < labelsSet.length; i++, j += 5) {
+      labelsSet[i] = j;
     }
     return labelsSet;
   }
