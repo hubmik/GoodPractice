@@ -26,10 +26,10 @@ export class LinearFunctionComponent implements OnInit {
       labels: labelsSet,
       datasets: [
         {
-          label: "f(x) = a*x+b",
+          label: 'f(x) = a*x+b',
           function: (x: number) => a * x + b,
           data: [],
-          borderColor: "rgba(75, 1, 192, 1)",
+          borderColor: 'rgba(75, 1, 192, 1)',
           fill: false,
         },
       ],
@@ -49,7 +49,7 @@ export class LinearFunctionComponent implements OnInit {
     var options = {
       title: {
         display: true,
-        text: "Graph of a Linear Function",
+        text: 'Graph of a Linear Function',
       },
       annotation: {
         annotations: [
@@ -60,12 +60,17 @@ export class LinearFunctionComponent implements OnInit {
             scaleID: 'x-axis-0',
             value: 0,
             borderColor: 'black',
-            borderWidth: 0.5,
-            label: {
-              enabled: true,
-              content: 'Test vertical label'
-            }
+            borderWidth: 1
           },
+          {
+            drawTime: 'afterDraw',
+            type: 'line',
+            mode: 'horizontal',
+            scaleID: 'y-axis-0',
+            value: 0,
+            borderColor: 'black',
+            borderWidth: 1
+          }
         ],
       },
       scales: {
