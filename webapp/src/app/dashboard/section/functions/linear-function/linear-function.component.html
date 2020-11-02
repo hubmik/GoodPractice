@@ -6,7 +6,13 @@
     <br>Funkcja liniowa może zawierać monotoniczność stałą, rosnącą, oraz malejącą.
   </p>
 
-  <div id="chart">
+  <div class="chart">
     <canvas id="linear-function-chart"></canvas>
+    <p>f(x)={{aParam}}*x+{{bParam}}</p>
+    <div class="input-group">
+      a:<input [(ngModel)] = "aParam"><br>
+      b:<input [(ngModel)] = "bParam">
+      <button (click)="renderChart(aParam, bParam)">Zaktualizuj Wykres</button>
+    </div>
   </div>
 </div>

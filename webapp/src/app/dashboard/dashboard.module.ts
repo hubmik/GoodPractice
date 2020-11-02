@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SectionComponent } from './section/section.component';
@@ -12,7 +13,8 @@ import { LinearFunctionComponent } from './section/functions/linear-function/lin
   declarations: [SectionComponent, NumberSetsComponent, FunctionsComponent, LinearFunctionComponent],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    FormsModule
   ]
 })
 export class DashboardModule { }

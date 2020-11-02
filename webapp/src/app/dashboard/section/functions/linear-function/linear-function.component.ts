@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Chart } from "node_modules/chart.js";
 import 'chartjs-plugin-annotation';
 import { bindCallback } from "rxjs";
+import { strict } from 'assert';
 
 @Component({
   selector: "app-linear-function",
@@ -9,8 +10,8 @@ import { bindCallback } from "rxjs";
   styleUrls: ["./linear-function.component.scss"],
 })
 export class LinearFunctionComponent implements OnInit {
-  public aParam: number = -3;
-  public bParam: number = 5;
+  public aParam: number = 1;
+  public bParam: number = 2;
 
   constructor() {}
 
@@ -19,6 +20,13 @@ export class LinearFunctionComponent implements OnInit {
   }
 
   renderChart(a: number, b: number): void {
+
+    if(typeof a === 'string'){
+      a = +a;
+    }
+    if(typeof b === 'string'){
+      b = +b;
+    }
 
     var labelsSet = this.fillChartData();
 
@@ -49,7 +57,7 @@ export class LinearFunctionComponent implements OnInit {
     var options = {
       title: {
         display: true,
-        text: 'Graph of a Linear Function',
+        text: 'Wykres Fukcji Liniowej',
       },
       annotation: {
         annotations: [
@@ -78,7 +86,7 @@ export class LinearFunctionComponent implements OnInit {
           {
             scaleLabel: {
               display: true,
-              labelString: "Y axis",
+              labelString: "Oś Y",
             },
             ticks: {
               beginAtZero: false,
@@ -91,7 +99,7 @@ export class LinearFunctionComponent implements OnInit {
           {
             scaleLabel: {
               display: true,
-              labelString: "X axis",
+              labelString: "Oś X",
             },
           },
         ],
@@ -113,4 +121,8 @@ export class LinearFunctionComponent implements OnInit {
     return labelsSet;
   }
 
+  updateChart(chart): void {
+    chart.options.title.text = 'Dupa kupa';
+    chart.update();
+  }
 }
